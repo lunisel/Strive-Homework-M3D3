@@ -649,8 +649,6 @@
 
     <script>
 
-window.onload = {}
-
 const getPictures = function(query){
   fetch("https://api.pexels.com/v1/search?query="+ query,{
   headers : {Authorization: "Bearer 563492ad6f917000010000015c136c609500453680abb35a60de7add"}
@@ -684,19 +682,34 @@ const getPictures = function(query){
                       <button
                         type="button"
                         class="btn btn-sm btn-outline-secondary"
+                        onclick="hideButton()"
                       >
-                        Edit
+                        Hide
                       </button>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted">${arrPhotos[i].id}</small>
                   </div>
                 </div>`
       }
-
+      
     }
-        
   })
 }
+
+let btns = document.querySelectorAll("div.btn-group button+button")
+btns.forEach((btn) => {
+  btn.innerHTML = "Hide"
+  btn.classList.add("hide")
+})
+
+const hideButton = function(){
+  btns.forEach((btn) => {
+    btn.onclick = (event) => 
+    event.currentTarget.closest(".card").remove()
+  })
+}
+
+btns.forEach((btn) => {btn.addEventListener("click", hideButton)})
 
 
     </script>
