@@ -195,8 +195,8 @@
             them in a cool way!
           </p>
           <p>
-            <a href="#" class="btn btn-primary my-2">Load Images</a>
-            <a href="#" class="btn btn-secondary my-2">Load Secondary Images</a>
+            <a href="#" class="btn btn-primary my-2" onclick="getPictures('Rome')">Load Images</a>
+            <a href="#" class="btn btn-secondary my-2" onclick="getPictures('Paris')">Load Secondary Images</a>
           </p>
         </div>
       </section>
@@ -646,5 +646,34 @@
       integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+
+window.onload = {}
+
+const getPictures = function(query){
+  fetch("https://api.pexels.com/v1/search?query="+ query,{
+  headers : {Authorization: "Bearer 563492ad6f917000010000015c136c609500453680abb35a60de7add"}
+  })
+  .then(response => response.json())
+  .then(pictures => {
+    let row = document.getElementsByClassName("row")[1]
+    row.innerHTML = ""
+    let arrPhotos = pictures.photos
+    for(let i=0; i<arrPhotos.length; i++){
+      let src = arrPhotos[i].src
+      let col = document.createElement("div")
+      col.classList.add("col-md-4")
+      row.appendChild(col)
+      col.innerHTML = `<img src="${src.original}" class="img-fluid" />`
+    }
+  })
+}
+
+
+
+
+    </script>
+
   </body>
 </html>
