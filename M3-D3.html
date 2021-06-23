@@ -657,20 +657,46 @@ const getPictures = function(query){
   })
   .then(response => response.json())
   .then(pictures => {
-    let row = document.getElementsByClassName("row")[1]
-    row.innerHTML = ""
+    let cards = document.getElementsByClassName("card")
     let arrPhotos = pictures.photos
-    for(let i=0; i<arrPhotos.length; i++){
-      let src = arrPhotos[i].src
-      let col = document.createElement("div")
-      col.classList.add("col-md-4")
-      row.appendChild(col)
-      col.innerHTML = `<img src="${src.original}" class="img-fluid" />`
+    cards.innerHTML = ""
+    for(let i=0; i<arrPhotos.length; i++) {
+      for(let i=0; i<cards.length; i++){
+        let src = arrPhotos[i].src.original
+        cards[i].innerHTML = `
+                  <img src="${src}" class="img-fluid"/>
+                <div class="card-body">
+                  <p class="card-text">
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        View
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>`
+      }
+
     }
+        
   })
 }
-
-
 
 
     </script>
